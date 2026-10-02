@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MercaHub | BJMP Livelihood Marketplace</title>
+<style>
+:root{--green:#185c45;--light:#edf5ef;--gold:#efbd58;--ink:#25352d;--muted:#6c7972;--border:#dde6df}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f6f8f5;color:var(--ink)}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:8px;padding:11px 16px;background:var(--green);color:white}
+button:hover{opacity:.88}
+button.secondary{background:var(--light);color:var(--green)}
+button.danger{background:#b54646}
+button:disabled{opacity:.45;cursor:default}
+header{background:white;border-bottom:1px solid var(--border);padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.brand{font-size:26px;font-weight:bold;color:var(--green)}
+.brand small{display:block;font-size:11px;font-weight:normal;letter-spacing:1px;margin-top:5px}
+.header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.notice{padding:9px;text-align:center;background:var(--light);font-size:12px;color:var(--green)}
+.layout{display:flex;min-height:80vh}
+aside{width:225px;padding:24px 15px;background:white;border-right:1px solid var(--border);flex-shrink:0}
+aside button{display:block;width:100%;text-align:left;margin:5px 0;background:transparent;color:var(--muted)}
+aside button.active{background:var(--light);color:var(--green);font-weight:bold}
+main{padding:32px;width:100%;min-width:0;max-width:1400px;margin:auto}
+h1{font-size:28px;margin-top:0}
+h2{font-size:20px}
+p{line-height:1.6}
+.muted{color:var(--muted)}
+.hero{background:var(--green);color:white;padding:36px;border-radius:16px;margin-bottom:25px}
+.hero h1{font-size:34px;max-width:650px}
+.hero p{max-width:650px;color:#e1eee6}
+.hero button{background:var(--gold);color:#243d30;font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:white;border:1px solid var(--border);padding:22px;border-radius:12px}
+.stat{font-size:28px;font-weight:bold;color:var(--green);margin:12px 0}
+.product-icon{height:125px;background:var(--light);border-radius:9px;display:grid;place-items:center;font-size:54px}
+.price{font-size:21px;font-weight:bold;color:var(--green)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+input,select{padding:11px;border:1px solid var(--border);border-radius:8px;background:white;max-width:100%}
+input[type=search]{flex:1;min-width:170px}
+.table-wrap{overflow:auto;background:white;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;white-space:nowrap}
+th,td{padding:15px;text-align:left;border-bottom:1px solid var(--border)}
+th{background:var(--light);font-size:13px}
+td button{padding:7px 10px;font-size:12px;margin:2px}
+.badge{background:var(--light);padding:6px 9px;border-radius:20px;font-size:12px}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+form{display:grid;gap:12px}
+.form-card{max-width:440px;margin:25px auto}
+label{font-size:14px;font-weight:bold}
+footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#25352d;color:white;padding:14px 22px;border-radius:10px;z-index:100;max-width:90%;display:none}
+@media(max-width:720px){
+.layout{display:block}
+aside{width:100%;display:flex;overflow:auto;padding:10px;border-right:0}
+aside button{width:auto;white-space:nowrap;margin:0 3px}
+main{padding:20px}
+.hero{padding:25px}
+.hero h1{font-size:27px}
+}
+@media print{
+header,aside,footer,.notice,.toolbar,button{display:none!important}
+main{padding:0}
+.card,.table-wrap{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="brand">MercaHub<small>BJMP LIVELIHOOD MARKETPLACE</small></div>
+<div class="header-actions">
+<button class="secondary" onclick="switchMode('customer')">Customer Marketplace</button>
+<button class="secondary" onclick="switchMode('bjmp')">BJMP Portal</button>
+<span id="account"></span>
+</div>
+</header>
+<div class="notice">Demonstration prototype • Sample products and financial records • No real payments</div>
+<div class="layout">
+<aside id="nav"></aside>
+<main id="content"></main>
+</div>
+<footer>MercaHub Technologies • Supporting livelihood through digital connections</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const KEY='mercahub-github-demo-v1';
+const initial={
+products:[
+{id:1,name:'Handwoven Basket',category:'Handicrafts',price:250,stock:20,icon:'🧺'},
+{id:2,name:'Beaded Keychain',category:'Accessories',price:75,stock:40,icon:'🔑'},
+{id:3,name:'Handmade Tote Bag',category:'Bags',price:350,stock:15,icon:'👜'},
+{id:4,name:'Decorative Plant Pot',category:'Home Decor',price:180,stock:18,icon:'🪴'}
+],
+orders:[],expenses:[],cart:[]
+};
+let db;
+try{db=JSON.parse(localStorage.getItem(KEY))||structuredClone(initial)}
+catch{db=structuredClone(initial)}
+let mode='customer',page='Marketplace',user=null;
+const money=n=>new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP'}).format(n);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch{toast('Browser storage is unavailable. Changes will last for this session.')}};
+const total=o=>o.items.reduce((s,i)=>s+i.price*i.qty,0);
+const recognized=()=>db.orders.filter(o=>o.status==='Completed');
+const revenue=()=>recognized().reduce((s,o)=>s+total(o),0);
+const expenses=()=>db.expenses.reduce((s,e)=>s+e.amount,0);
+function toast(msg){
+const el=document.getElementById('toast');el.textContent=msg;el.style.display='block';
+clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.style.display='none',3500);
+}
+function switchMode(m){mode=m;page=m==='customer'?'Marketplace':'Dashboard';render()}
+function go(p){page=p;render()}
+function render(){
+const pages=mode==='customer'?['Marketplace','Cart','My Orders','Login']:
+['Dashboard','Product Management','Sales Tracking','Order Management','Cancellations','Refund Management','Financial Monitoring','Reports'];
+document.getElementById('nav').innerHTML=pages.map(p=>`<button class="${page===p?'active':''}" onclick="go('${p}')">${p}${p==='Cart'?' ('+db.cart.reduce((s,i)=>s+i.qty,0)+')':''}</button>`).join('');
+document.getElementById('account').innerHTML=user?`${esc(user)} <button class="secondary" onclick="user=null;render()">Log out</button>`:'';
+const content=document.getElementById('content');
+if(mode==='customer'){
+if(page==='Marketplace')marketplace();
+if(page==='Cart')cart();
+if(page==='My Orders')myOrders();
+if(page==='Login')login();
+}else{
+if(page==='Dashboard')dashboard();
+if(page==='Product Management')products();
+if(page==='Sales Tracking')sales();
+if(page==='Order Management')orderManagement();
+if(page==='Cancellations')cancellations();
+if(page==='Refund Management')refunds();
+if(page==='Financial Monitoring')financial();
+if(page==='Reports')reports();
+}
+}
+function marketplace(){
+document.getElementById('content').innerHTML=`
+<section class="hero"><h1>Handcrafted products.<br>Meaningful opportunities.</h1>
+<p>Explore sample BJMP livelihood products and support skills, creativity, and productive livelihood activities.</p>
+<button onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Explore Products</button></section>
+<div class="toolbar"><input type="search" placeholder="Search products..." oninput="filterProducts(this.value)">
+<select id="category" onchange="filterProducts(document.querySelector('input[type=search]').value)">
+<option value="">All Categories</option>${[...new Set(db.products.map(p=>p.category))].map(c=>`<option>${esc(c)}</option>`).join('')}</select></div>
+<div class="grid" id="catalog"></div>`;
+filterProducts('');
+}
+function filterProducts(q){
+const cat=document.getElementById('category').value;
+const items=db.products.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())&&(!cat||p.category===cat));
+document.getElementById('catalog').innerHTML=items.map(p=>`
+<div class="card"><div class="product-icon">${esc(p.icon)}</div>
+<p class="muted">${esc(p.category)}</p><h2>${esc(p.name)}</h2>
+<p class="price">${money(p.price)}</p><p class="muted">${p.stock} available</p>
+<button ${p.stock<1?'disabled':''} onclick="addCart(${p.id})">${p.stock<1?'Out of Stock':'Add to Cart'}</button></div>`).join('')||'<p class="empty">No products found.</p>';
+}
+function addCart(id){
+const p=db.products.find(p=>p.id===id),item=db.cart.find(i=>i.id===id);
+if((item?.qty||0)>=p.stock)return toast('Available stock limit reached.');
+if(item)item.qty++;else db.cart.push({id,qty:1});
+save();render();toast('Added to cart.');
+}
+function cart(){
+const items=db.cart.map(i=>({...db.products.find(p=>p.id===i.id),qty:i.qty}));
+document.getElementById('content').innerHTML=`<h1>Your Cart</h1>
+${items.length?`<div class="table-wrap"><table><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr>
+${items.map(i=>`<tr><td>${esc(i.name)}</td><td>${money(i.price)}</td><td>${i.qty}</td><td>${money(i.price*i.qty)}</td>
+<td><button class="secondary" onclick="removeCart(${i.id})">Remove</button></td></tr>`).join('')}</table></div>
+<div class="card" style="margin-top:20px"><h2>Total: ${money(items.reduce((s,i)=>s+i.price*i.qty,0))}</h2>
+<p class="muted">Demo checkout only. No payment or delivery is processed.</p><button onclick="checkout()">Place Demo Order</button></div>`:
+'<div class="card empty">Your cart is empty. Visit the marketplace to add products.</div>'}`;
+}
+function removeCart(id){db.cart=db.cart.filter(i=>i.id!==id);save();render()}
+function checkout(){
+if(!user){page='Login';render();toast('Enter a demo customer name before placing an order.');return}
+if(!db.cart.length)return;
+for(const i of db.cart){
+const p=db.products.find(p=>p.id===i.id);
+if(!p||i.qty>p.stock)return toast('Stock has changed. Please update your cart.');
+}
+const items=db.cart.map(i=>{
+const p=db.products.find(p=>p.id===i.id);p.stock-=i.qty;
+return{id:p.id,name:p.name,price:p.price,qty:i.qty};
+});
+db.orders.unshift({id:Date.now(),customer:user,date:new Date().toLocaleDateString('en-PH'),items,status:'Pending',refund:'None'});
+db.cart=[];save();page='My Orders';render();toast('Demo order placed.');
+}
+function login(){
+document.getElementById('content').innerHTML=`<div class="card form-card"><h1>Customer Demo Login</h1>
+<p class="muted">Enter a name to explore the customer experience. This does not create a secure account.</p>
+<form onsubmit="event.preventDefault();user=this.elements.customer.value.trim();go('My Orders')">
+<label>Your name<input style="width:100%;margin-top:8px" name="customer" required maxlength="60" placeholder="Enter your name"></label>
+<button>Continue</button></form></div>`;
+}
+function orderTable(orders,actions=false){
+return orders.length?`<div class="table-wrap"><table><tr><th>Order</th><th>Date</th><th>Customer</th><th>Products</th><th>Total</th><th>Status</th>${actions?'<th>Actions</th>':''}</tr>
+${orders.map(o=>`<tr><td>MH-${String(o.id).slice(-6)}</td><td>${esc(o.date)}</td><td>${esc(o.customer)}</td>
+<td>${o.items.map(i=>`${esc(i.name)} × ${i.qty}`).join('<br>')}</td><td>${money(total(o))}</td><td><span class="badge">${esc(o.status)}</span></td>
+${actions?`<td>${orderActions(o)}</td>`:''}</tr>`).join('')}</table></div>`:'<div class="card empty">No orders to display.</div>';
+}
+function orderActions(o){
+if(mode==='customer'){
+if(['Pending','Processing'].includes(o.status))return `<button class="danger" onclick="cancelOrder(${o.id})">Cancel Order</button>`;
+if(o.status==='Completed'&&o.refund==='None')return `<button class="secondary" onclick="requestRefund(${o.id})">Request Refund</button>`;
+return esc(o.refund==='None'?'—':'Refund: '+o.refund);
+}
+if(o.status==='Pending')return `<button onclick="setStatus(${o.id},'Processing')">Process</button><button class="danger" onclick="cancelOrder(${o.id})">Cancel</button>`;
+if(o.status==='Processing')return `<button onclick="setStatus(${o.id},'Shipped')">Mark Shipped</button>`;
+if(o.status==='Shipped')return `<button onclick="setStatus(${o.id},'Completed')">Complete</button>`;
+return '—';
+}
+function myOrders(){
+document.getElementById('content').innerHTML=`<h1>My Orders</h1>${user?
+`<p class="muted">Demo orders for ${esc(user)}</p>${orderTable(db.orders.filter(o=>o.customer===user),true)}`:
+'<div class="card"><p>Enter your demo customer name to view your orders.</p><button onclick="go(\'Login\')">Customer Login</button></div>'}`;
+}
+function restoreStock(o){o.items.forEach(i=>{const p=db.products.find(p=>p.id===i.id);if(p)p.stock+=i.qty})}
+function cancelOrder(id){
+const o=db.orders.find(o=>o.id===id);
+if(!['Pending','Processing'].includes(o.status))return;
+if(!confirm('Cancel this demo order?'))return;
+restoreStock(o);o.status='Cancelled';save();render();toast('Order cancelled. Stock restored.');
+}
+function setStatus(id,status){
+const o=db.orders.find(o=>o.id===id);o.status=status;save();render();toast('Order status updated.');
+}
+function requestRefund(id){
+const o=db.orders.find(o=>o.id===id);
+if(o.status!=='Completed'||o.refund!=='None')return;
+o.refund='Requested';save();render();toast('Refund request submitted for demo review.');
+}
+function stat(label,value){return `<div class="card"><div class="muted">${label}</div><div class="stat">${value}</div></div>`}
+function dashboard(){
+document.getElementById('content').innerHTML=`<h1>BJMP Livelihood Dashboard</h1>
+<p class="muted">Monitor sample products, orders, inventory, and financial activity.</p>
+<div class="grid">${stat('Completed Sales',money(revenue()))}${stat('Total Orders',db.orders.length)}
+${stat('Available Inventory',db.products.reduce((s,p)=>s+p.stock,0)+' units')}
+${stat('Pending Orders',db.orders.filter(o=>o.status==='Pending').length)}</div>
+<h2>Recent Orders</h2>${orderTable(db.orders.slice(0,5))}
+<h2>Low Stock Products</h2><div class="card">${db.products.filter(p=>p.stock<=5).map(p=>`<p>${esc(p.name)}: ${p.stock} units</p>`).join('')||'<p class="muted">All products have more than five units in stock.</p>'}</div>`;
+}
+function products(){
+document.getElementById('content').innerHTML=`<h1>Product Management</h1>
+<div class="card" style="margin-bottom:20px"><h2>Add Product</h2>
+<form onsubmit="addProduct(event)"><div class="toolbar">
+<input name="name" placeholder="Product name" required maxlength="100">
+<input name="category" placeholder="Category" required maxlength="60">
+<input name="price" type="number" min="0.01" step="0.01" placeholder="Price (₱)" required>
+<input name="stock" type="number" min="0" step="1" placeholder="Stock" required>
+<button>Add Product</button></div></form></div>
+<div class="table-wrap"><table><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
+${db.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td>${money(p.price)}</td><td>${p.stock}</td>
+<td><button onclick="editProduct(${p.id})">Edit</button><button class="danger" onclick="deleteProduct(${p.id})">Delete</button></td></tr>`).join('')}</table></div>`;
+}
+function addProduct(e){
+e.preventDefault();const f=e.target.elements;
+db.products.push({id:Date.now(),name:f.name.value.trim(),category:f.category.value.trim(),price:Number(f.price.value),stock:Number(f.stock.value),icon:'🎁'});
+save();render();toast('Product added.');
+}
+function editProduct(id){
+const p=db.products.find(p=>p.id===id);
+const name=prompt('Product name:',p.name);if(name===null||!name.trim())return;
+const price=prompt('Price (₱):',p.price);if(price===null)return;
+const stock=prompt('Stock quantity:',p.stock);if(stock===null)return;
+if(!Number.isFinite(Number(price))||Number(price)<=0||!Number.isInteger(Number(stock))||Number(stock)<0)return toast('Enter a valid price and whole-number stock.');
+p.name=name.trim();p.price=Number(price);p.stock=Number(stock);save();render();
+}
+function deleteProduct(id){
+if(db.orders.some(o=>['Pending','Processing','Shipped'].includes(o.status)&&o.items.some(i=>i.id===id)))return toast('Finish or cancel active orders containing this product first.');
+if(!confirm('Delete this product?'))return;
+db.products=db.products.filter(p=>p.id!==id);db.cart=db.cart.filter(i=>i.id!==id);save();render();
+}
+function sales(){
+document.getElementById('content').innerHTML=`<h1>Sales Tracking</h1>
+<div class="grid">${stat('Completed Sales',money(revenue()))}${stat('Completed Orders',recognized().length)}
+${stat('Units Sold',recognized().reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0))}</div>
+<h2>Completed Orders</h2>${orderTable(recognized())}`;
+}
+function orderManagement(){
+document.getElementById('content').innerHTML=`<h1>Order Management</h1>
+<p class="muted">Update orders from pending to processing, shipped, and completed.</p>${orderTable(db.orders,true)}`;
+}
+function cancellations(){
+document.getElementById('content').innerHTML=`<h1>Order Cancellations</h1>
+<p class="muted">Cancelled orders automatically return their reserved quantities to inventory.</p>${orderTable(db.orders.filter(o=>o.status==='Cancelled'))}`;
+}
+function refunds(){
+const orders=db.orders.filter(o=>o.refund!=='None');
+document.getElementById('content').innerHTML=`<h1>Refund Management</h1>
+<p class="muted">Approval records a full demo refund and reverses the completed sale. No money is transferred.</p>
+${orders.length?`<div class="table-wrap"><table><tr><th>Order</th><th>Customer</th><th>Amount</th><th>Refund Status</th><th>Action</th></tr>
+${orders.map(o=>`<tr><td>MH-${String(o.id).slice(-6)}</td><td>${esc(o.customer)}</td><td>${money(total(o))}</td><td>${esc(o.refund)}</td>
+<td>${o.refund==='Requested'?`<button onclick="reviewRefund(${o.id},true)">Approve</button><button class="danger" onclick="reviewRefund(${o.id},false)">Reject</button>`:'—'}</td></tr>`).join('')}</table></div>`:
+'<div class="card empty">No refund requests.</div>'}`;
+}
+function reviewRefund(id,approved){
+const o=db.orders.find(o=>o.id===id);if(o.refund!=='Requested')return;
+o.refund=approved?'Approved':'Rejected';if(approved)o.status='Refunded';
+save();render();toast(approved?'Demo refund approved.':'Refund request rejected.');
+}
+function financial(){
+document.getElementById('content').innerHTML=`<h1>Financial Monitoring</h1>
+<div class="grid">${stat('Completed Sales, After Refunds',money(revenue()))}${stat('Recorded Expenses',money(expenses()))}
+${stat('Sales Less Recorded Expenses',money(revenue()-expenses()))}</div>
+<p class="muted">This summary is based on completed orders and manually recorded expenses. It is not a complete accounting statement.</p>
+<div class="card"><h2>Record Expense</h2><form onsubmit="addExpense(event)">
+<div class="toolbar"><input name="description" placeholder="Expense description" required maxlength="120">
+<input name="amount" type="number" step="0.01" min="0.01" placeholder="Amount (₱)" required><button>Save Expense</button></div></form></div>
+<h2>Expense Records</h2>${db.expenses.length?`<div class="table-wrap"><table><tr><th>Date</th><th>Description</th><th>Amount</th></tr>
+${db.expenses.map(e=>`<tr><td>${esc(e.date)}</td><td>${esc(e.description)}</td><td>${money(e.amount)}</td></tr>`).join('')}</table></div>`:'<div class="card empty">No expenses recorded.</div>'}`;
+}
+function addExpense(e){
+e.preventDefault();const f=e.target.elements;
+db.expenses.unshift({description:f.description.value.trim(),amount:Number(f.amount.value),date:new Date().toLocaleDateString('en-PH')});
+save();render();toast('Expense recorded.');
+}
+function reports(){
+document.getElementById('content').innerHTML=`<h1>Livelihood Summary Report</h1>
+<p class="muted">Generated: ${esc(new Date().toLocaleString('en-PH'))}</p>
+<div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button><button class="secondary" onclick="exportCSV()">Download Orders CSV</button></div>
+<div class="grid">${stat('Completed Sales',money(revenue()))}${stat('Recorded Expenses',money(expenses()))}
+${stat('Sales Less Expenses',money(revenue()-expenses()))}
+${stat('Approved Refunds',money(db.orders.filter(o=>o.refund==='Approved').reduce((s,o)=>s+total(o),0)))}</div>
+<h2>Order Summary</h2>${orderTable(db.orders)}
+<h2>Inventory Summary</h2><div class="table-wrap"><table><tr><th>Product</th><th>Category</th><th>Available Stock</th></tr>
+${db.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td>${p.stock}</td></tr>`).join('')}</table></div>`;
+}
+function exportCSV(){
+const cell=value=>{
+let s=String(value);if(/^[=+\-@\t\r]/.test(s))s="'"+s;
+return '"'+s.replace(/"/g,'""')+'"';
+};
+const rows=[['Order','Date','Customer','Total PHP','Status','Refund'],
+...db.orders.map(o=>['MH-'+String(o.id).slice(-6),o.date,o.customer,total(o).toFixed(2),o.status,o.refund])];
+const blob=new Blob(['\uFEFF'+rows.map(r=>r.map(cell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});
+const url=URL.createObjectURL(blob),a=document.createElement('a');
+a.href=url;a.download='MercaHub_Order_Report.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+render();
+</script>
+</body>
+</html>
