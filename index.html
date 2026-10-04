@@ -1,341 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MercaHub | BJMP Livelihood Marketplace</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MercaHub | Livelihood Marketplace</title>
 <style>
-:root{--green:#185c45;--light:#edf5ef;--gold:#efbd58;--ink:#25352d;--muted:#6c7972;--border:#dde6df}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f6f8f5;color:var(--ink)}
-button,input,select{font:inherit}
-button{cursor:pointer;border:0;border-radius:8px;padding:11px 16px;background:var(--green);color:white}
-button:hover{opacity:.88}
-button.secondary{background:var(--light);color:var(--green)}
-button.danger{background:#b54646}
-button:disabled{opacity:.45;cursor:default}
-header{background:white;border-bottom:1px solid var(--border);padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.brand{font-size:26px;font-weight:bold;color:var(--green)}
-.brand small{display:block;font-size:11px;font-weight:normal;letter-spacing:1px;margin-top:5px}
-.header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.notice{padding:9px;text-align:center;background:var(--light);font-size:12px;color:var(--green)}
-.layout{display:flex;min-height:80vh}
-aside{width:225px;padding:24px 15px;background:white;border-right:1px solid var(--border);flex-shrink:0}
-aside button{display:block;width:100%;text-align:left;margin:5px 0;background:transparent;color:var(--muted)}
-aside button.active{background:var(--light);color:var(--green);font-weight:bold}
-main{padding:32px;width:100%;min-width:0;max-width:1400px;margin:auto}
-h1{font-size:28px;margin-top:0}
-h2{font-size:20px}
-p{line-height:1.6}
-.muted{color:var(--muted)}
-.hero{background:var(--green);color:white;padding:36px;border-radius:16px;margin-bottom:25px}
-.hero h1{font-size:34px;max-width:650px}
-.hero p{max-width:650px;color:#e1eee6}
-.hero button{background:var(--gold);color:#243d30;font-weight:bold}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card{background:white;border:1px solid var(--border);padding:22px;border-radius:12px}
-.stat{font-size:28px;font-weight:bold;color:var(--green);margin:12px 0}
-.product-icon{height:125px;background:var(--light);border-radius:9px;display:grid;place-items:center;font-size:54px}
-.price{font-size:21px;font-weight:bold;color:var(--green)}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
-input,select{padding:11px;border:1px solid var(--border);border-radius:8px;background:white;max-width:100%}
-input[type=search]{flex:1;min-width:170px}
-.table-wrap{overflow:auto;background:white;border:1px solid var(--border);border-radius:12px}
-table{width:100%;border-collapse:collapse;white-space:nowrap}
-th,td{padding:15px;text-align:left;border-bottom:1px solid var(--border)}
-th{background:var(--light);font-size:13px}
-td button{padding:7px 10px;font-size:12px;margin:2px}
-.badge{background:var(--light);padding:6px 9px;border-radius:20px;font-size:12px}
-.empty{padding:30px;text-align:center;color:var(--muted)}
-form{display:grid;gap:12px}
-.form-card{max-width:440px;margin:25px auto}
-label{font-size:14px;font-weight:bold}
-footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
-.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#25352d;color:white;padding:14px 22px;border-radius:10px;z-index:100;max-width:90%;display:none}
-@media(max-width:720px){
-.layout{display:block}
-aside{width:100%;display:flex;overflow:auto;padding:10px;border-right:0}
-aside button{width:auto;white-space:nowrap;margin:0 3px}
-main{padding:20px}
-.hero{padding:25px}
-.hero h1{font-size:27px}
-}
-@media print{
-header,aside,footer,.notice,.toolbar,button{display:none!important}
-main{padding:0}
-.card,.table-wrap{break-inside:avoid}
-}
+:root{--green:#185c45;--light:#eaf3ed;--ink:#26392e;--muted:#6c7c71;--line:#dce5df}*{box-sizing:border-box}body{margin:0;background:#f5f7f4;font-family:Arial,sans-serif;color:var(--ink)}button,input,select,textarea{font:inherit}button{background:var(--green);color:white;border:0;border-radius:8px;padding:11px 16px;cursor:pointer}button:hover{opacity:.86}button:disabled{opacity:.45;cursor:default}.secondary{background:var(--light);color:var(--green)}.danger{background:#ad4545}header{background:white;padding:18px 5%;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.brand{font-size:27px;font-weight:bold;color:var(--green)}.brand small{display:block;font-size:10px;letter-spacing:1.5px;margin-top:6px}.actions,.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.notice{text-align:center;background:var(--light);color:var(--green);padding:10px;font-size:12px}.layout{display:flex;min-height:78vh}nav{width:220px;background:white;padding:18px 12px;flex-shrink:0;border-right:1px solid var(--line)}nav button{display:block;background:transparent;color:var(--muted);text-align:left;width:100%;margin-bottom:6px}nav button.active{background:var(--light);color:var(--green);font-weight:bold}main{width:100%;min-width:0;padding:30px;max-width:1400px;margin:0 auto}h1{margin-top:0;font-size:29px}h2{font-size:20px}p{line-height:1.6}.muted{color:var(--muted)}.hero{background:var(--green);color:white;padding:35px;border-radius:16px;margin-bottom:24px}.hero h1{font-size:35px;max-width:650px}.hero p{max-width:660px;color:#e0eee5}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}.card{background:white;border:1px solid var(--line);padding:22px;border-radius:12px;margin-bottom:17px}.art{height:120px;background:var(--light);display:grid;place-items:center;font-size:55px;border-radius:9px}.price,.stat{color:var(--green);font-weight:bold;font-size:25px}.toolbar{margin-bottom:18px}input,select,textarea{border:1px solid #ccd8ce;border-radius:8px;padding:11px;background:white;width:100%;color:var(--ink)}textarea{min-height:90px;resize:vertical}label{font-size:14px;font-weight:bold;display:grid;gap:7px}form{display:grid;gap:15px}.formbox{max-width:470px;margin:15px auto}.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}.tablewrap{overflow:auto;border:1px solid var(--line);background:white;border-radius:10px;margin-bottom:18px}table{border-collapse:collapse;width:100%;white-space:nowrap}td,th{text-align:left;padding:14px;border-bottom:1px solid var(--line)}th{background:var(--light);font-size:13px}td button{font-size:12px;padding:7px 10px;margin:2px}.badge{display:inline-block;border-radius:20px;background:var(--light);padding:6px 10px;font-size:12px}.empty{padding:25px;text-align:center;color:var(--muted)}.star{color:#aa7400}.small{font-size:12px}.history{border-left:3px solid #bed6c6;padding-left:15px}footer{text-align:center;padding:23px;font-size:12px;color:var(--muted)}#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);padding:14px 20px;background:#25392c;color:white;border-radius:9px;z-index:20;display:none;max-width:90%}@media(max-width:720px){.layout{display:block}nav{width:100%;display:flex;overflow:auto;padding:9px}nav button{width:auto;white-space:nowrap;margin:0 3px}main{padding:18px}.two{grid-template-columns:1fr}.hero{padding:25px}.hero h1{font-size:28px}}@media print{header,nav,footer,.notice,.toolbar,button{display:none!important}main{padding:0}.card{break-inside:avoid}}
 </style>
 </head>
 <body>
-<header>
-<div class="brand">MercaHub<small>BJMP LIVELIHOOD MARKETPLACE</small></div>
-<div class="header-actions">
-<button class="secondary" onclick="switchMode('customer')">Customer Marketplace</button>
-<button class="secondary" onclick="switchMode('bjmp')">BJMP Portal</button>
-<span id="account"></span>
-</div>
-</header>
-<div class="notice">Demonstration prototype • Sample products and financial records • No real payments</div>
-<div class="layout">
-<aside id="nav"></aside>
-<main id="content"></main>
-</div>
-<footer>MercaHub Technologies • Supporting livelihood through digital connections</footer>
-<div class="toast" id="toast" role="status"></div>
-
+<header><div class="brand">MercaHub<small>BJMP LIVELIHOOD MARKETPLACE</small></div><div class="actions"><button class="secondary" onclick="switchMode('customer')">Customer Marketplace</button><button class="secondary" onclick="switchMode('bjmp')">BJMP Portal</button><span id="account"></span></div></header>
+<div class="notice">Academic demo • Sample accounts and orders • No real payments or live courier connections</div>
+<div class="layout"><nav id="nav"></nav><main id="main"></main></div>
+<footer>MercaHub Technologies • Supporting livelihood through digital connections</footer><div id="toast" role="status"></div>
 <script>
-const KEY='mercahub-github-demo-v1';
-const initial={
-products:[
-{id:1,name:'Handwoven Basket',category:'Handicrafts',price:250,stock:20,icon:'🧺'},
-{id:2,name:'Beaded Keychain',category:'Accessories',price:75,stock:40,icon:'🔑'},
-{id:3,name:'Handmade Tote Bag',category:'Bags',price:350,stock:15,icon:'👜'},
-{id:4,name:'Decorative Plant Pot',category:'Home Decor',price:180,stock:18,icon:'🪴'}
-],
-orders:[],expenses:[],cart:[]
-};
-let db;
-try{db=JSON.parse(localStorage.getItem(KEY))||structuredClone(initial)}
-catch{db=structuredClone(initial)}
-let mode='customer',page='Marketplace',user=null;
+'use strict';
+const KEY='mercahub-complete-demo-v3';
+const couriers=['J&T Express','LBC','Flash Express'],payments=['Cash on Delivery','GCash','Maya','Bank Transfer'];
+const stages=['Pending','Processing','Shipped','Out for Delivery','Delivered'];
+const initial={accounts:[],orders:[],expenses:[],reviews:[],products:[
+{id:'p1',name:'Handwoven Basket',category:'Handicrafts',price:250,stock:20,icon:'🧺',description:'A handmade basket for everyday storage and home decoration.'},
+{id:'p2',name:'Beaded Keychain',category:'Accessories',price:75,stock:40,icon:'🔑',description:'A colorful handmade keychain created through livelihood activities.'},
+{id:'p3',name:'Handmade Tote Bag',category:'Bags',price:350,stock:15,icon:'👜',description:'A reusable tote bag for shopping, school, and everyday use.'},
+{id:'p4',name:'Decorative Plant Pot',category:'Home Decor',price:180,stock:18,icon:'🪴',description:'A decorative pot for small indoor plants.'}]};
+let db;try{db=JSON.parse(localStorage.getItem(KEY))||structuredClone(initial)}catch{db=structuredClone(initial)}
+let mode='customer',page='Marketplace',current=null,cart=[];
+const main=document.getElementById('main');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=n=>new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP'}).format(n);
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch{toast('Browser storage is unavailable. Changes will last for this session.')}};
-const total=o=>o.items.reduce((s,i)=>s+i.price*i.qty,0);
-const recognized=()=>db.orders.filter(o=>o.status==='Completed');
-const revenue=()=>recognized().reduce((s,o)=>s+total(o),0);
-const expenses=()=>db.expenses.reduce((s,e)=>s+e.amount,0);
-function toast(msg){
-const el=document.getElementById('toast');el.textContent=msg;el.style.display='block';
-clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.style.display='none',3500);
-}
-function switchMode(m){mode=m;page=m==='customer'?'Marketplace':'Dashboard';render()}
-function go(p){page=p;render()}
+const id=()=>crypto.randomUUID(),date=s=>new Date(s).toLocaleString('en-PH');
+const subtotal=o=>o.items.reduce((s,i)=>s+i.price*i.qty,0),total=o=>subtotal(o)+o.shipping;
+const staff=()=>current?.role==='bjmp',customer=()=>current?.role==='customer';
+const options=(values,selected='')=>values.map(v=>`<option ${v===selected?'selected':''}>${esc(v)}</option>`).join('');
+function toast(text){const el=document.getElementById('toast');el.textContent=text;el.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.style.display='none',3500)}
+function commit(change){const before=structuredClone(db);change();try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch{db=before;toast('Browser storage unavailable. Changes could not be saved.');return false}}
+function switchMode(value){if(mode!==value){current=null;cart=[]}mode=value;page=mode==='customer'?'Marketplace':'Dashboard';render()}
+function go(value){page=value;render()}
+function logout(){current=null;cart=[];page=mode==='bjmp'?'Dashboard':'Marketplace';render()}
 function render(){
-const pages=mode==='customer'?['Marketplace','Cart','My Orders','Login']:
-['Dashboard','Product Management','Sales Tracking','Order Management','Cancellations','Refund Management','Financial Monitoring','Reports'];
-document.getElementById('nav').innerHTML=pages.map(p=>`<button class="${page===p?'active':''}" onclick="go('${p}')">${p}${p==='Cart'?' ('+db.cart.reduce((s,i)=>s+i.qty,0)+')':''}</button>`).join('');
-document.getElementById('account').innerHTML=user?`${esc(user)} <button class="secondary" onclick="user=null;render()">Log out</button>`:'';
-const content=document.getElementById('content');
-if(mode==='customer'){
-if(page==='Marketplace')marketplace();
-if(page==='Cart')cart();
-if(page==='My Orders')myOrders();
-if(page==='Login')login();
-}else{
-if(page==='Dashboard')dashboard();
-if(page==='Product Management')products();
-if(page==='Sales Tracking')sales();
-if(page==='Order Management')orderManagement();
-if(page==='Cancellations')cancellations();
-if(page==='Refund Management')refunds();
-if(page==='Financial Monitoring')financial();
-if(page==='Reports')reports();
+document.getElementById('account').innerHTML=current?`${esc(current.name)} <button class="secondary" onclick="logout()">Log Out</button>`:'';
+if(mode==='bjmp'&&!staff()){document.getElementById('nav').innerHTML='<button class="active">BJMP Login</button>';auth(false);return}
+const pages=mode==='customer'?['Marketplace','Cart','My Orders',...(current?[]:['Login / Create Account'])]:['Dashboard','Product Management','Sales Tracking','Order Management','Cancellations','Refund Management','Financial Monitoring','Reports'];
+document.getElementById('nav').innerHTML=pages.map(p=>`<button class="${p===page?'active':''}" onclick="go('${p}')">${p}${p==='Cart'?' ('+cart.reduce((s,i)=>s+i.qty,0)+')':''}</button>`).join('');
+const views={'Marketplace':marketplace,'Cart':cartView,'My Orders':myOrders,'Login / Create Account':()=>auth(false),'Dashboard':dashboard,'Product Management':productManagement,'Sales Tracking':sales,'Order Management':orderManagement,'Cancellations':cancellations,'Refund Management':refundManagement,'Financial Monitoring':financial,'Reports':reports};(views[page]||marketplace)();
 }
-}
-function marketplace(){
-document.getElementById('content').innerHTML=`
-<section class="hero"><h1>Handcrafted products.<br>Meaningful opportunities.</h1>
-<p>Explore sample BJMP livelihood products and support skills, creativity, and productive livelihood activities.</p>
-<button onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Explore Products</button></section>
-<div class="toolbar"><input type="search" placeholder="Search products..." oninput="filterProducts(this.value)">
-<select id="category" onchange="filterProducts(document.querySelector('input[type=search]').value)">
-<option value="">All Categories</option>${[...new Set(db.products.map(p=>p.category))].map(c=>`<option>${esc(c)}</option>`).join('')}</select></div>
-<div class="grid" id="catalog"></div>`;
-filterProducts('');
-}
-function filterProducts(q){
-const cat=document.getElementById('category').value;
-const items=db.products.filter(p=>p.name.toLowerCase().includes(q.toLowerCase())&&(!cat||p.category===cat));
-document.getElementById('catalog').innerHTML=items.map(p=>`
-<div class="card"><div class="product-icon">${esc(p.icon)}</div>
-<p class="muted">${esc(p.category)}</p><h2>${esc(p.name)}</h2>
-<p class="price">${money(p.price)}</p><p class="muted">${p.stock} available</p>
-<button ${p.stock<1?'disabled':''} onclick="addCart(${p.id})">${p.stock<1?'Out of Stock':'Add to Cart'}</button></div>`).join('')||'<p class="empty">No products found.</p>';
-}
-function addCart(id){
-const p=db.products.find(p=>p.id===id),item=db.cart.find(i=>i.id===id);
-if((item?.qty||0)>=p.stock)return toast('Available stock limit reached.');
-if(item)item.qty++;else db.cart.push({id,qty:1});
-save();render();toast('Added to cart.');
-}
-function cart(){
-const items=db.cart.map(i=>({...db.products.find(p=>p.id===i.id),qty:i.qty}));
-document.getElementById('content').innerHTML=`<h1>Your Cart</h1>
-${items.length?`<div class="table-wrap"><table><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr>
-${items.map(i=>`<tr><td>${esc(i.name)}</td><td>${money(i.price)}</td><td>${i.qty}</td><td>${money(i.price*i.qty)}</td>
-<td><button class="secondary" onclick="removeCart(${i.id})">Remove</button></td></tr>`).join('')}</table></div>
-<div class="card" style="margin-top:20px"><h2>Total: ${money(items.reduce((s,i)=>s+i.price*i.qty,0))}</h2>
-<p class="muted">Demo checkout only. No payment or delivery is processed.</p><button onclick="checkout()">Place Demo Order</button></div>`:
-'<div class="card empty">Your cart is empty. Visit the marketplace to add products.</div>'}`;
-}
-function removeCart(id){db.cart=db.cart.filter(i=>i.id!==id);save();render()}
-function checkout(){
-if(!user){page='Login';render();toast('Enter a demo customer name before placing an order.');return}
-if(!db.cart.length)return;
-for(const i of db.cart){
-const p=db.products.find(p=>p.id===i.id);
-if(!p||i.qty>p.stock)return toast('Stock has changed. Please update your cart.');
-}
-const items=db.cart.map(i=>{
-const p=db.products.find(p=>p.id===i.id);p.stock-=i.qty;
-return{id:p.id,name:p.name,price:p.price,qty:i.qty};
-});
-db.orders.unshift({id:Date.now(),customer:user,date:new Date().toLocaleDateString('en-PH'),items,status:'Pending',refund:'None'});
-db.cart=[];save();page='My Orders';render();toast('Demo order placed.');
-}
-function login(){
-document.getElementById('content').innerHTML=`<div class="card form-card"><h1>Customer Demo Login</h1>
-<p class="muted">Enter a name to explore the customer experience. This does not create a secure account.</p>
-<form onsubmit="event.preventDefault();user=this.elements.customer.value.trim();go('My Orders')">
-<label>Your name<input style="width:100%;margin-top:8px" name="customer" required maxlength="60" placeholder="Enter your name"></label>
-<button>Continue</button></form></div>`;
-}
-function orderTable(orders,actions=false){
-return orders.length?`<div class="table-wrap"><table><tr><th>Order</th><th>Date</th><th>Customer</th><th>Products</th><th>Total</th><th>Status</th>${actions?'<th>Actions</th>':''}</tr>
-${orders.map(o=>`<tr><td>MH-${String(o.id).slice(-6)}</td><td>${esc(o.date)}</td><td>${esc(o.customer)}</td>
-<td>${o.items.map(i=>`${esc(i.name)} × ${i.qty}`).join('<br>')}</td><td>${money(total(o))}</td><td><span class="badge">${esc(o.status)}</span></td>
-${actions?`<td>${orderActions(o)}</td>`:''}</tr>`).join('')}</table></div>`:'<div class="card empty">No orders to display.</div>';
-}
-function orderActions(o){
-if(mode==='customer'){
-if(['Pending','Processing'].includes(o.status))return `<button class="danger" onclick="cancelOrder(${o.id})">Cancel Order</button>`;
-if(o.status==='Completed'&&o.refund==='None')return `<button class="secondary" onclick="requestRefund(${o.id})">Request Refund</button>`;
-return esc(o.refund==='None'?'—':'Refund: '+o.refund);
-}
-if(o.status==='Pending')return `<button onclick="setStatus(${o.id},'Processing')">Process</button><button class="danger" onclick="cancelOrder(${o.id})">Cancel</button>`;
-if(o.status==='Processing')return `<button onclick="setStatus(${o.id},'Shipped')">Mark Shipped</button>`;
-if(o.status==='Shipped')return `<button onclick="setStatus(${o.id},'Completed')">Complete</button>`;
-return '—';
-}
-function myOrders(){
-document.getElementById('content').innerHTML=`<h1>My Orders</h1>${user?
-`<p class="muted">Demo orders for ${esc(user)}</p>${orderTable(db.orders.filter(o=>o.customer===user),true)}`:
-'<div class="card"><p>Enter your demo customer name to view your orders.</p><button onclick="go(\'Login\')">Customer Login</button></div>'}`;
-}
-function restoreStock(o){o.items.forEach(i=>{const p=db.products.find(p=>p.id===i.id);if(p)p.stock+=i.qty})}
-function cancelOrder(id){
-const o=db.orders.find(o=>o.id===id);
-if(!['Pending','Processing'].includes(o.status))return;
-if(!confirm('Cancel this demo order?'))return;
-restoreStock(o);o.status='Cancelled';save();render();toast('Order cancelled. Stock restored.');
-}
-function setStatus(id,status){
-const o=db.orders.find(o=>o.id===id);o.status=status;save();render();toast('Order status updated.');
-}
-function requestRefund(id){
-const o=db.orders.find(o=>o.id===id);
-if(o.status!=='Completed'||o.refund!=='None')return;
-o.refund='Requested';save();render();toast('Refund request submitted for demo review.');
-}
-function stat(label,value){return `<div class="card"><div class="muted">${label}</div><div class="stat">${value}</div></div>`}
-function dashboard(){
-document.getElementById('content').innerHTML=`<h1>BJMP Livelihood Dashboard</h1>
-<p class="muted">Monitor sample products, orders, inventory, and financial activity.</p>
-<div class="grid">${stat('Completed Sales',money(revenue()))}${stat('Total Orders',db.orders.length)}
-${stat('Available Inventory',db.products.reduce((s,p)=>s+p.stock,0)+' units')}
-${stat('Pending Orders',db.orders.filter(o=>o.status==='Pending').length)}</div>
-<h2>Recent Orders</h2>${orderTable(db.orders.slice(0,5))}
-<h2>Low Stock Products</h2><div class="card">${db.products.filter(p=>p.stock<=5).map(p=>`<p>${esc(p.name)}: ${p.stock} units</p>`).join('')||'<p class="muted">All products have more than five units in stock.</p>'}</div>`;
-}
-function products(){
-document.getElementById('content').innerHTML=`<h1>Product Management</h1>
-<div class="card" style="margin-bottom:20px"><h2>Add Product</h2>
-<form onsubmit="addProduct(event)"><div class="toolbar">
-<input name="name" placeholder="Product name" required maxlength="100">
-<input name="category" placeholder="Category" required maxlength="60">
-<input name="price" type="number" min="0.01" step="0.01" placeholder="Price (₱)" required>
-<input name="stock" type="number" min="0" step="1" placeholder="Stock" required>
-<button>Add Product</button></div></form></div>
-<div class="table-wrap"><table><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
-${db.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td>${money(p.price)}</td><td>${p.stock}</td>
-<td><button onclick="editProduct(${p.id})">Edit</button><button class="danger" onclick="deleteProduct(${p.id})">Delete</button></td></tr>`).join('')}</table></div>`;
-}
-function addProduct(e){
-e.preventDefault();const f=e.target.elements;
-db.products.push({id:Date.now(),name:f.name.value.trim(),category:f.category.value.trim(),price:Number(f.price.value),stock:Number(f.stock.value),icon:'🎁'});
-save();render();toast('Product added.');
-}
-function editProduct(id){
-const p=db.products.find(p=>p.id===id);
-const name=prompt('Product name:',p.name);if(name===null||!name.trim())return;
-const price=prompt('Price (₱):',p.price);if(price===null)return;
-const stock=prompt('Stock quantity:',p.stock);if(stock===null)return;
-if(!Number.isFinite(Number(price))||Number(price)<=0||!Number.isInteger(Number(stock))||Number(stock)<0)return toast('Enter a valid price and whole-number stock.');
-p.name=name.trim();p.price=Number(price);p.stock=Number(stock);save();render();
-}
-function deleteProduct(id){
-if(db.orders.some(o=>['Pending','Processing','Shipped'].includes(o.status)&&o.items.some(i=>i.id===id)))return toast('Finish or cancel active orders containing this product first.');
-if(!confirm('Delete this product?'))return;
-db.products=db.products.filter(p=>p.id!==id);db.cart=db.cart.filter(i=>i.id!==id);save();render();
-}
-function sales(){
-document.getElementById('content').innerHTML=`<h1>Sales Tracking</h1>
-<div class="grid">${stat('Completed Sales',money(revenue()))}${stat('Completed Orders',recognized().length)}
-${stat('Units Sold',recognized().reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0))}</div>
-<h2>Completed Orders</h2>${orderTable(recognized())}`;
-}
-function orderManagement(){
-document.getElementById('content').innerHTML=`<h1>Order Management</h1>
-<p class="muted">Update orders from pending to processing, shipped, and completed.</p>${orderTable(db.orders,true)}`;
-}
-function cancellations(){
-document.getElementById('content').innerHTML=`<h1>Order Cancellations</h1>
-<p class="muted">Cancelled orders automatically return their reserved quantities to inventory.</p>${orderTable(db.orders.filter(o=>o.status==='Cancelled'))}`;
-}
-function refunds(){
-const orders=db.orders.filter(o=>o.refund!=='None');
-document.getElementById('content').innerHTML=`<h1>Refund Management</h1>
-<p class="muted">Approval records a full demo refund and reverses the completed sale. No money is transferred.</p>
-${orders.length?`<div class="table-wrap"><table><tr><th>Order</th><th>Customer</th><th>Amount</th><th>Refund Status</th><th>Action</th></tr>
-${orders.map(o=>`<tr><td>MH-${String(o.id).slice(-6)}</td><td>${esc(o.customer)}</td><td>${money(total(o))}</td><td>${esc(o.refund)}</td>
-<td>${o.refund==='Requested'?`<button onclick="reviewRefund(${o.id},true)">Approve</button><button class="danger" onclick="reviewRefund(${o.id},false)">Reject</button>`:'—'}</td></tr>`).join('')}</table></div>`:
-'<div class="card empty">No refund requests.</div>'}`;
-}
-function reviewRefund(id,approved){
-const o=db.orders.find(o=>o.id===id);if(o.refund!=='Requested')return;
-o.refund=approved?'Approved':'Rejected';if(approved)o.status='Refunded';
-save();render();toast(approved?'Demo refund approved.':'Refund request rejected.');
-}
-function financial(){
-document.getElementById('content').innerHTML=`<h1>Financial Monitoring</h1>
-<div class="grid">${stat('Completed Sales, After Refunds',money(revenue()))}${stat('Recorded Expenses',money(expenses()))}
-${stat('Sales Less Recorded Expenses',money(revenue()-expenses()))}</div>
-<p class="muted">This summary is based on completed orders and manually recorded expenses. It is not a complete accounting statement.</p>
-<div class="card"><h2>Record Expense</h2><form onsubmit="addExpense(event)">
-<div class="toolbar"><input name="description" placeholder="Expense description" required maxlength="120">
-<input name="amount" type="number" step="0.01" min="0.01" placeholder="Amount (₱)" required><button>Save Expense</button></div></form></div>
-<h2>Expense Records</h2>${db.expenses.length?`<div class="table-wrap"><table><tr><th>Date</th><th>Description</th><th>Amount</th></tr>
-${db.expenses.map(e=>`<tr><td>${esc(e.date)}</td><td>${esc(e.description)}</td><td>${money(e.amount)}</td></tr>`).join('')}</table></div>`:'<div class="card empty">No expenses recorded.</div>'}`;
-}
-function addExpense(e){
-e.preventDefault();const f=e.target.elements;
-db.expenses.unshift({description:f.description.value.trim(),amount:Number(f.amount.value),date:new Date().toLocaleDateString('en-PH')});
-save();render();toast('Expense recorded.');
-}
-function reports(){
-document.getElementById('content').innerHTML=`<h1>Livelihood Summary Report</h1>
-<p class="muted">Generated: ${esc(new Date().toLocaleString('en-PH'))}</p>
-<div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button><button class="secondary" onclick="exportCSV()">Download Orders CSV</button></div>
-<div class="grid">${stat('Completed Sales',money(revenue()))}${stat('Recorded Expenses',money(expenses()))}
-${stat('Sales Less Expenses',money(revenue()-expenses()))}
-${stat('Approved Refunds',money(db.orders.filter(o=>o.refund==='Approved').reduce((s,o)=>s+total(o),0)))}</div>
-<h2>Order Summary</h2>${orderTable(db.orders)}
-<h2>Inventory Summary</h2><div class="table-wrap"><table><tr><th>Product</th><th>Category</th><th>Available Stock</th></tr>
-${db.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td>${p.stock}</td></tr>`).join('')}</table></div>`;
-}
-function exportCSV(){
-const cell=value=>{
-let s=String(value);if(/^[=+\-@\t\r]/.test(s))s="'"+s;
-return '"'+s.replace(/"/g,'""')+'"';
-};
-const rows=[['Order','Date','Customer','Total PHP','Status','Refund'],
-...db.orders.map(o=>['MH-'+String(o.id).slice(-6),o.date,o.customer,total(o).toFixed(2),o.status,o.refund])];
-const blob=new Blob(['\uFEFF'+rows.map(r=>r.map(cell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});
-const url=URL.createObjectURL(blob),a=document.createElement('a');
-a.href=url;a.download='MercaHub_Order_Report.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-}
+async function hash(password,salt){if(!crypto.subtle)throw Error('Open this file in a modern browser or use your HTTPS GitHub Pages link.');const encoder=new TextEncoder();const key=await crypto.subtle.importKey('raw',encoder.encode(password),'PBKDF2',false,['deriveBits']);const result=await crypto.subtle.deriveBits({name:'PBKDF2',salt:encoder.encode(salt),iterations:100000,hash:'SHA-256'},key,256);return Array.from(new Uint8Array(result)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+function auth(register){const isStaff=mode==='bjmp';main.innerHTML=`<div class="card formbox"><h1>${isStaff?'BJMP Staff':'Customer'} ${register?'Registration':'Login'}</h1><p class="muted">${register?'Create your demo account.':'Sign in to continue.'}</p><form id="authForm">
+${register?`<label>Full Name<input name="name" required maxlength="60" autocomplete="name"></label>${isStaff?'<label>Jail / Unit<input name="unit" required maxlength="100" placeholder="Example: Sample City Jail"></label>':''}`:''}
+<label>${isStaff?'User ID':'Email Address'}<input name="identity" ${isStaff?'type="text" pattern="[A-Za-z0-9_-]{4,40}" title="4–40 letters, numbers, underscores or hyphens"':'type="email"'} required maxlength="120" autocomplete="username" placeholder="${isStaff?'BJMP_001':'customer@example.com'}"></label>
+<label>Password<input name="password" type="password" required ${register?'minlength="8"':''} maxlength="128" autocomplete="${register?'new-password':'current-password'}"></label>
+${register?'<label>Confirm Password<input name="confirmation" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label>':''}
+<label style="display:flex;align-items:center;font-weight:normal"><input style="width:auto" type="checkbox" onchange="togglePasswords(this.checked)"> Show password</label>
+<p id="authError" role="status" style="color:#ad4545;margin:0"></p><button id="authSubmit">${register?'Create Account':'Log In'}</button></form><p>${register?'Already have an account?':'No account yet?'}</p><button class="secondary" onclick="auth(${!register})">${register?'Back to Login':'Create Account'}</button><p class="muted small">Use sample details and a unique demo password. Accounts work only in this browser. ${isStaff?'Staff registration is open for demonstration; real staff access requires administrator approval.':''}</p></div>`;document.getElementById('authForm').onsubmit=e=>submitAuth(e,register,isStaff)}
+function togglePasswords(show){document.querySelectorAll('#authForm input[name=password],#authForm input[name=confirmation]').forEach(el=>el.type=show?'text':'password')}
+async function submitAuth(e,register,isStaff){e.preventDefault();const f=e.target.elements,button=document.getElementById('authSubmit'),identity=f.identity.value.trim().toLowerCase(),password=f.password.value,role=isStaff?'bjmp':'customer',error=document.getElementById('authError');button.disabled=true;error.textContent='';try{const existing=db.accounts.find(a=>a.identity===identity&&a.role===role);if(register){const name=f.name.value.trim(),unit=isStaff?f.unit.value.trim():'';if(!name||(isStaff&&!unit))throw Error('Complete all required fields.');if(existing)throw Error('This email or User ID is already registered.');if(password.length<8)throw Error('Use at least 8 characters.');if(password!==f.confirmation.value)throw Error('Passwords do not match.');const salt=id(),passwordHash=await hash(password,salt);if(!commit(()=>db.accounts.push({id:id(),name,unit,identity,role,salt,passwordHash})))return;auth(false);document.querySelector('[name=identity]').value=identity;toast('Account created! You can now log in.')}else{if(!existing||await hash(password,existing.salt)!==existing.passwordHash)throw Error('Incorrect login details.');current=existing;page=isStaff?'Dashboard':'My Orders';render();toast('Welcome, '+current.name+'!')}}catch(err){error.textContent=err.message}finally{if(button.isConnected)button.disabled=false}}
+function rating(productId){const reviews=db.reviews.filter(r=>r.productId===productId);return reviews.length?`${(reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1)} ★ (${reviews.length})`:'No reviews yet'}
+function marketplace(){main.innerHTML=`<div class="hero"><h1>Handcrafted products.<br>Meaningful opportunities.</h1><p>Discover sample livelihood products and explore how MercaHub connects customers with BJMP livelihood programs.</p></div><div class="toolbar"><input id="search" style="flex:1" placeholder="Search products..." oninput="filterProducts()"><select id="category" style="width:auto" onchange="filterProducts()"><option value="">All Categories</option>${options([...new Set(db.products.map(p=>p.category))])}</select></div><div class="grid" id="catalog"></div>`;filterProducts()}
+function filterProducts(){const search=document.getElementById('search').value.toLowerCase(),category=document.getElementById('category').value;document.getElementById('catalog').innerHTML=db.products.filter(p=>p.name.toLowerCase().includes(search)&&(!category||p.category===category)).map(p=>`<div class="card"><div class="art">${esc(p.icon)}</div><p class="muted small">${esc(p.category)}</p><h2>${esc(p.name)}</h2><p class="price">${money(p.price)}</p><p class="star">${rating(p.id)}</p><p class="muted">${p.stock} units available</p><div class="actions"><button ${p.stock<1?'disabled':''} onclick="addCart('${p.id}')">Add to Cart</button><button class="secondary" onclick="productDetail('${p.id}')">Details & Reviews</button></div></div>`).join('')||'<p class="empty">No matching products.</p>'}
+function addCart(productId){if(mode!=='customer')return;const p=db.products.find(p=>p.id===productId),item=cart.find(i=>i.id===productId);if(!p||(item?.qty||0)>=p.stock)return toast('Available stock limit reached.');if(item)item.qty++;else cart.push({id:productId,qty:1});toast('Added to cart.');render()}
+function productDetail(productId){const p=db.products.find(p=>p.id===productId);if(!p)return;const reviews=db.reviews.filter(r=>r.productId===productId),eligible=customer()&&db.orders.some(o=>o.customerId===current.id&&o.status==='Delivered'&&o.items.some(i=>i.id===productId)),previous=customer()&&reviews.some(r=>r.customerId===current.id);main.innerHTML=`<button class="secondary" onclick="go('Marketplace')">← Back to Marketplace</button><div class="card" style="margin-top:18px"><div class="art">${esc(p.icon)}</div><h1>${esc(p.name)}</h1><p>${esc(p.description)}</p><p class="price">${money(p.price)}</p><p>${p.stock} units available • <span class="star">${rating(p.id)}</span></p><button ${p.stock<1?'disabled':''} onclick="addCart('${p.id}')">Add to Cart</button></div><h2>Product Reviews</h2>${reviews.map(r=>`<div class="card"><strong>${esc(r.name)}</strong><p class="star">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</p><p style="white-space:pre-wrap">${esc(r.comment)}</p><p class="muted small">Verified demo purchase • ${date(r.date)}</p></div>`).join('')||'<div class="card muted">No reviews for this product yet.</div>'}${eligible&&!previous?`<div class="card"><h2>Write Your Review</h2><form onsubmit="submitReview(event,'${p.id}')"><label>Rating<select name="rating">${options(['5','4','3','2','1'])}</select></label><label>Your Review<textarea name="comment" required maxlength="600" placeholder="How was this product?"></textarea></label><button>Submit Review</button></form></div>`:`<p class="muted">${previous?'You have already reviewed this product.':'Customers can review a product after their order is marked Delivered.'}</p>`}`}
+function submitReview(e,productId){e.preventDefault();if(!customer())return;const eligible=db.orders.some(o=>o.customerId===current.id&&o.status==='Delivered'&&o.items.some(i=>i.id===productId));if(!eligible||db.reviews.some(r=>r.customerId===current.id&&r.productId===productId))return;const comment=e.target.elements.comment.value.trim();if(!comment)return toast('Please enter your review.');if(commit(()=>db.reviews.push({id:id(),productId,customerId:current.id,name:current.name,rating:Number(e.target.elements.rating.value),comment,date:new Date().toISOString()}))){productDetail(productId);toast('Review submitted.')}}
+function cartView(){const items=cart.map(i=>({...db.products.find(p=>p.id===i.id),qty:i.qty})).filter(i=>i.name);main.innerHTML=`<h1>Your Cart</h1>${items.length?`<div class="tablewrap"><table><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th>Action</th></tr>${items.map(i=>`<tr><td>${esc(i.name)}</td><td>${money(i.price)}</td><td><button class="secondary" onclick="changeQty('${i.id}',-1)">−</button> ${i.qty} <button class="secondary" onclick="changeQty('${i.id}',1)">+</button></td><td>${money(i.price*i.qty)}</td><td><button class="danger" onclick="removeCart('${i.id}')">Remove</button></td></tr>`).join('')}</table></div><div class="card"><h2>Subtotal: ${money(items.reduce((s,i)=>s+i.price*i.qty,0))}</h2><button onclick="checkoutView()">Proceed to Checkout</button></div>`:'<div class="card empty">Your cart is empty.</div>'}`}
+function removeCart(productId){cart=cart.filter(i=>i.id!==productId);render()}
+function changeQty(productId,delta){const item=cart.find(i=>i.id===productId),p=db.products.find(p=>p.id===productId);if(!item||!p)return;if(item.qty+delta<1)return removeCart(productId);if(item.qty+delta>p.stock)return toast('Available stock limit reached.');item.qty+=delta;render()}
+function checkoutView(){if(!customer()){page='Login / Create Account';render();toast('Please log in, then open your cart to continue.');return}if(!cart.length)return go('Cart');const amount=cart.reduce((s,i)=>s+(db.products.find(p=>p.id===i.id)?.price||0)*i.qty,0);main.innerHTML=`<h1>Checkout</h1><div class="card"><form onsubmit="placeOrder(event)"><div class="two"><label>Recipient Name<input name="recipient" required maxlength="70" value="${esc(current.name)}"></label><label>Mobile Number<input name="phone" type="tel" required pattern="09[0-9]{9}" placeholder="09XXXXXXXXX" title="11 digits starting with 09"></label></div><label>House / Building / Street<input name="street" required maxlength="150"></label><div class="two"><label>Barangay<input name="barangay" required maxlength="80"></label><label>City / Municipality<input name="city" required maxlength="80"></label><label>Province<input name="province" required maxlength="80"></label><label>Postal Code<input name="postal" required pattern="[0-9]{4}" maxlength="4" inputmode="numeric" placeholder="4 digits"></label></div><div class="two"><label>Payment Method<select name="payment">${options(payments)}</select></label><label>Courier<select name="courier">${options(couriers)}</select></label></div><label>Delivery Notes (optional)<textarea name="notes" maxlength="300" placeholder="Example: Landmark or delivery instructions"></textarea></label><div class="notice">All payments are simulated. Do not enter real banking or wallet credentials.</div><p>Products: <strong>${money(amount)}</strong><br>Shipping: <strong>${money(80)}</strong> <span class="muted">(fixed demo fee)</span><br>Total: <strong>${money(amount+80)}</strong></p><button>Place Demo Order</button></form></div>`}
+function placeOrder(e){e.preventDefault();if(!customer()||!cart.length)return;const f=e.target.elements,fields=['recipient','phone','street','barangay','city','province','postal'];if(fields.some(k=>!f[k].value.trim()))return toast('Complete your shipping details.');for(const item of cart){const p=db.products.find(p=>p.id===item.id);if(!p||item.qty>p.stock)return toast('Stock has changed. Please update your cart.')}const items=cart.map(i=>{const p=db.products.find(p=>p.id===i.id);return{id:p.id,name:p.name,price:p.price,qty:i.qty}}),now=new Date().toISOString();const order={id:id(),customerId:current.id,customer:current.name,date:now,items,recipient:f.recipient.value.trim(),phone:f.phone.value.trim(),address:['street','barangay','city','province','postal'].map(k=>f[k].value.trim()).join(', '),notes:f.notes.value.trim(),payment:f.payment.value,paymentStatus:f.payment.value==='Cash on Delivery'?'Due on delivery':'Simulated payment received',courier:f.courier.value,tracking:'',shipping:80,status:'Pending',refund:'None',refundReason:'',history:[{status:'Pending',date:now}]};if(commit(()=>{items.forEach(i=>db.products.find(p=>p.id===i.id).stock-=i.qty);db.orders.unshift(order)})){cart=[];go('My Orders');toast('Demo order placed successfully.')}}
+function visibleOrder(orderId){const o=db.orders.find(o=>o.id===orderId);return o&&(staff()||(customer()&&o.customerId===current.id))?o:null}
+function orderTable(orders){return orders.length?`<div class="tablewrap"><table><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Courier</th><th>Action</th></tr>${orders.map(o=>`<tr><td>MH-${o.id.slice(0,8)}</td><td>${esc(o.customer)}</td><td>${money(total(o))}</td><td><span class="badge">${esc(o.status)}</span></td><td>${esc(o.courier)}</td><td><button onclick="orderDetail('${o.id}')">View Details</button></td></tr>`).join('')}</table></div>`:'<div class="card empty">No orders to display.</div>'}
+function myOrders(){main.innerHTML=`<h1>My Orders</h1>${customer()?orderTable(db.orders.filter(o=>o.customerId===current.id)):'<div class="card"><p>Log in or create a customer account to view your orders.</p><button onclick="go(\'Login / Create Account\')">Login / Create Account</button></div>'}`}
+function orderDetail(orderId){const o=visibleOrder(orderId);if(!o)return;const next=stages[stages.indexOf(o.status)+1];main.innerHTML=`<button class="secondary" onclick="render()">← Back</button><h1 style="margin-top:20px">Order MH-${o.id.slice(0,8)}</h1><div class="grid"><div class="card"><h2>Delivery Details</h2><p><strong>${esc(o.recipient)}</strong><br>${esc(o.phone)}<br>${esc(o.address)}</p><p class="muted">${esc(o.notes)}</p></div><div class="card"><h2>Payment & Shipping</h2><p>Payment: ${esc(o.payment)}<br>Payment status: ${esc(o.paymentStatus)}<br>Courier: <strong>${esc(o.courier)}</strong><br>Tracking number: <strong>${esc(o.tracking||'Awaiting dispatch')}</strong><br>Shipping status: <strong>${esc(o.status)}</strong></p><p class="muted small">Tracking updates are entered manually for this demo.</p></div></div><div class="card"><h2>Order Items</h2>${o.items.map(i=>`<p>${esc(i.name)} × ${i.qty} — ${money(i.price*i.qty)} ${customer()&&o.status==='Delivered'&&db.products.some(p=>p.id===i.id)?`<button class="secondary" onclick="productDetail('${i.id}')">Review Product</button>`:''}</p>`).join('')}<p>Shipping: ${money(o.shipping)}</p><h2>Total: ${money(total(o))}</h2><p>Refund: ${esc(o.refund)} ${o.refundReason?'— '+esc(o.refundReason):''}</p><div class="actions">${['Pending','Processing'].includes(o.status)?`<button class="danger" onclick="cancelOrder('${o.id}')">Cancel Order</button>`:''}${customer()&&o.status==='Delivered'&&o.refund==='None'?`<button class="secondary" onclick="requestRefund('${o.id}')">Request Full Refund</button>`:''}</div></div>${staff()&&stages.includes(o.status)&&o.status!=='Delivered'?`<div class="card"><h2>Update Shipment</h2><form onsubmit="updateShipment(event,'${o.id}')"><label>Courier<select name="courier">${options(couriers,o.courier)}</select></label><label>Demo Tracking Number<input name="tracking" maxlength="60" value="${esc(o.tracking)}" placeholder="Leave blank to generate when shipping"></label><label>Status<select name="status">${options([o.status,...(next?[next]:[])],next||o.status)}</select></label><button>Save Shipping Update</button></form></div>`:''}<div class="card"><h2>Shipping History</h2><div class="history">${o.history.map(h=>`<p><strong>${esc(h.status)}</strong><br><span class="muted small">${date(h.date)}</span></p>`).join('')}</div></div>`}
+function updateShipment(e,orderId){e.preventDefault();if(!staff())return;const o=visibleOrder(orderId);if(!o)return;const f=e.target.elements,status=f.status.value,index=stages.indexOf(o.status);if(index<0||index===stages.length-1||![o.status,stages[index+1]].includes(status))return;if(commit(()=>{o.courier=f.courier.value;o.tracking=f.tracking.value.trim();if(stages.indexOf(status)>=2&&!o.tracking)o.tracking='DEMO-'+o.id.slice(0,8).toUpperCase();if(status!==o.status){o.status=status;o.history.push({status,date:new Date().toISOString()})}if(status==='Delivered'&&o.payment==='Cash on Delivery')o.paymentStatus='Simulated COD collected'})){orderDetail(orderId);toast('Shipping information updated.')}}
+function cancelOrder(orderId){const o=visibleOrder(orderId);if(!o||!['Pending','Processing'].includes(o.status))return;if(!confirm('Cancel this demo order?'))return;if(commit(()=>{o.items.forEach(i=>{const p=db.products.find(p=>p.id===i.id);if(p)p.stock+=i.qty});o.status='Cancelled';o.paymentStatus=o.payment==='Cash on Delivery'?'Cancelled — no payment due':'Simulated payment reversed';o.history.push({status:'Cancelled',date:new Date().toISOString()})})){render();toast('Order cancelled. Inventory restored.')}}
+function requestRefund(orderId){const o=visibleOrder(orderId);if(!customer()||!o||o.status!=='Delivered'||o.refund!=='None')return;const reason=prompt('Reason for requesting a full refund:');if(!reason?.trim())return;if(commit(()=>{o.refund='Requested';o.refundReason=reason.trim().slice(0,300)})){orderDetail(orderId);toast('Refund request submitted.')}}
+function card(label,value){return `<div class="card"><p class="muted">${label}</p><div class="stat">${value}</div></div>`}
+function delivered(){return db.orders.filter(o=>o.status==='Delivered')}
+function revenue(){return delivered().reduce((s,o)=>s+subtotal(o),0)}
+function expenseTotal(){return db.expenses.reduce((s,e)=>s+e.amount,0)}
+function dashboard(){if(!staff())return;main.innerHTML=`<h1>BJMP Livelihood Dashboard</h1><p class="muted">${esc(current.unit)}</p><div class="grid">${card('Product Sales',money(revenue()))}${card('Total Orders',db.orders.length)}${card('Available Stock',db.products.reduce((s,p)=>s+p.stock,0)+' units')}${card('Pending Orders',db.orders.filter(o=>o.status==='Pending').length)}</div><h2>Recent Orders</h2>${orderTable(db.orders.slice(0,5))}<h2>Low Stock Alerts</h2><div class="card">${db.products.filter(p=>p.stock<=5).map(p=>`<p>${esc(p.name)}: ${p.stock} units</p>`).join('')||'All products have more than five units available.'}</div>`}
+function productManagement(){if(!staff())return;main.innerHTML=`<h1>Product Management</h1><div class="card"><h2>Add Product</h2><form onsubmit="saveProduct(event)"><div class="two"><label>Product Name<input name="name" required maxlength="100"></label><label>Category<input name="category" required maxlength="60"></label><label>Price (₱)<input name="price" type="number" required min="0.01" max="1000000" step="0.01"></label><label>Available Stock<input name="stock" type="number" required min="0" max="1000000" step="1"></label></div><label>Description<textarea name="description" required maxlength="500"></textarea></label><button>Add Product</button></form></div><div class="tablewrap"><table><tr><th>Product</th><th>Price</th><th>Stock</th><th>Actions</th></tr>${db.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${money(p.price)}</td><td>${p.stock}</td><td><button onclick="editProduct('${p.id}')">Edit</button><button class="danger" onclick="deleteProduct('${p.id}')">Delete</button></td></tr>`).join('')}</table></div>`}
+function saveProduct(e){e.preventDefault();if(!staff())return;const f=e.target.elements;if(!f.name.value.trim()||!f.category.value.trim()||!f.description.value.trim())return toast('Complete all product details.');if(commit(()=>db.products.push({id:id(),name:f.name.value.trim(),category:f.category.value.trim(),description:f.description.value.trim(),price:Number(f.price.value),stock:Number(f.stock.value),icon:'🎁'}))){render();toast('Product added.')}}
+function editProduct(productId){if(!staff())return;const p=db.products.find(p=>p.id===productId);if(!p)return;const name=prompt('Product name:',p.name);if(!name?.trim())return;const price=prompt('Price:',p.price);if(price===null)return;const stock=prompt('Available stock:',p.stock);if(stock===null)return;if(!Number.isFinite(Number(price))||Number(price)<=0||!Number.isInteger(Number(stock))||Number(stock)<0)return toast('Enter a valid positive price and whole-number stock.');if(commit(()=>{p.name=name.trim();p.price=Number(price);p.stock=Number(stock)}))render()}
+function deleteProduct(productId){if(!staff())return;if(db.orders.some(o=>stages.slice(0,4).includes(o.status)&&o.items.some(i=>i.id===productId)))return toast('Complete or cancel active orders for this product first.');if(!confirm('Delete this product from the marketplace?'))return;if(commit(()=>db.products=db.products.filter(p=>p.id!==productId)))render()}
+function sales(){if(!staff())return;main.innerHTML=`<h1>Sales Tracking</h1><div class="grid">${card('Delivered Product Sales',money(revenue()))}${card('Delivered Orders',delivered().length)}${card('Shipping Collected',money(delivered().reduce((s,o)=>s+o.shipping,0)))}</div><p class="muted">Sales are recognized when delivered. Approved refunds are excluded.</p>${orderTable(delivered())}`}
+function orderManagement(){if(!staff())return;main.innerHTML=`<h1>Order Management</h1><p class="muted">Open an order to view checkout details and update shipping.</p>${orderTable(db.orders)}`}
+function cancellations(){if(!staff())return;main.innerHTML=`<h1>Cancelled Orders</h1>${orderTable(db.orders.filter(o=>o.status==='Cancelled'))}`}
+function refundManagement(){if(!staff())return;const orders=db.orders.filter(o=>o.refund!=='None');main.innerHTML=`<h1>Refund Management</h1><p class="muted">Approval simulates a full refund including shipping. Returned stock must be checked and updated separately.</p>${orders.map(o=>`<div class="card"><h2>MH-${o.id.slice(0,8)} • ${money(total(o))}</h2><p>${esc(o.customer)} — ${esc(o.refund)}</p><p>Reason: ${esc(o.refundReason)}</p>${o.refund==='Requested'?`<div class="actions"><button onclick="reviewRefund('${o.id}',true)">Approve Demo Refund</button><button class="danger" onclick="reviewRefund('${o.id}',false)">Reject Request</button></div>`:''}</div>`).join('')||'<div class="card empty">No refund requests.</div>'}`}
+function reviewRefund(orderId,approve){if(!staff())return;const o=db.orders.find(o=>o.id===orderId);if(!o||o.refund!=='Requested')return;if(commit(()=>{o.refund=approve?'Approved':'Rejected';if(approve){o.status='Refunded';o.paymentStatus='Simulated full refund completed';o.history.push({status:'Refunded',date:new Date().toISOString()})}})){render();toast(approve?'Demo refund approved.':'Refund request rejected.')}}
+function financial(){if(!staff())return;main.innerHTML=`<h1>Financial Monitoring</h1><div class="grid">${card('Product Sales',money(revenue()))}${card('Recorded Expenses',money(expenseTotal()))}${card('Sales Less Expenses',money(revenue()-expenseTotal()))}</div><p class="muted">Simplified demo summary. Shipping collections are shown separately in Sales Tracking. This is not a complete profit statement.</p><div class="card"><h2>Record Expense</h2><form onsubmit="addExpense(event)"><label>Description<input name="description" required maxlength="150"></label><label>Amount (₱)<input name="amount" type="number" required min="0.01" max="10000000" step="0.01"></label><button>Save Expense</button></form></div><div class="tablewrap"><table><tr><th>Date</th><th>Description</th><th>Amount</th></tr>${db.expenses.map(e=>`<tr><td>${date(e.date)}</td><td>${esc(e.description)}</td><td>${money(e.amount)}</td></tr>`).join('')}</table></div>`}
+function addExpense(e){e.preventDefault();if(!staff())return;const f=e.target.elements,description=f.description.value.trim();if(!description)return toast('Enter an expense description.');if(commit(()=>db.expenses.unshift({id:id(),date:new Date().toISOString(),description,amount:Number(f.amount.value)})))render()}
+function reports(){if(!staff())return;main.innerHTML=`<h1>Livelihood Summary Report</h1><p class="muted">Generated ${date(new Date())}</p><div class="toolbar"><button onclick="window.print()">Print / Save as PDF</button><button class="secondary" onclick="exportCSV()">Download Orders CSV</button></div><div class="grid">${card('Product Sales',money(revenue()))}${card('Recorded Expenses',money(expenseTotal()))}${card('Approved Refunds',money(db.orders.filter(o=>o.refund==='Approved').reduce((s,o)=>s+total(o),0)))}</div><h2>Orders</h2>${orderTable(db.orders)}<h2>Inventory</h2><div class="tablewrap"><table><tr><th>Product</th><th>Category</th><th>Available Stock</th></tr>${db.products.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td>${p.stock}</td></tr>`).join('')}</table></div>`}
+function exportCSV(){if(!staff())return;const cell=value=>{let s=String(value??'');if(/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};const rows=[['Order','Date','Customer','Products PHP','Shipping PHP','Total PHP','Payment Method','Payment Status','Courier','Tracking','Status','Refund'],...db.orders.map(o=>['MH-'+o.id.slice(0,8),o.date,o.customer,subtotal(o),o.shipping,total(o),o.payment,o.paymentStatus,o.courier,o.tracking,o.status,o.refund])];const blob=new Blob(['\uFEFF'+rows.map(row=>row.map(cell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='MercaHub_Order_Report.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 render();
 </script>
 </body>
